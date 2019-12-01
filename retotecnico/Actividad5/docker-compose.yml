@@ -1,0 +1,25 @@
+version: '1'
+services:
+  web:
+    image: "nginx:latest"
+    ports:
+     - "80:80"
+     - "3081:3081"
+    links:
+     - boot:springboot
+     - basedatos:mipostgres
+  boot:
+    image: "openjdk:8"
+    ports:
+     - "3081:3081"
+
+links:
+     - web:nginx
+     - basedatos:mipostgres
+basedatos:
+    image: "postgres:9.4"
+    ports:
+     - "5432:5432"
+links:
+     - web:nginx
+     - boot:springboot
